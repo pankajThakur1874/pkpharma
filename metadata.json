@@ -1,0 +1,5 @@
+{
+  "name": "People Kind Pharma",
+  "description": "A modern, searchable catalog of pharmaceutical products, powered by data from a Google Sheet. It features filtering, sorting, and an enquiry list functionality.",
+  "requestFramePermissions": []
+}
