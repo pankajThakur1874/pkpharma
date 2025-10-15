@@ -10,8 +10,7 @@ const Footer: React.FC = () => {
           {/* Company Info */}
           <div className="space-y-4">
             <Link to="/" className="flex items-center space-x-2 text-primary-dark">
-              <Stethoscope size={32} />
-              <span className="text-2xl font-bold">People Kind Pharma</span>
+              <img src="/banner-bgwhite.jpeg" alt="Logo"  />
             </Link>
             <p className="text-subtle text-sm">
               Your trusted partner in health and wellness, providing quality pharmaceutical care.
@@ -35,11 +34,11 @@ const Footer: React.FC = () => {
             <ul className="space-y-3 text-subtle">
               <li className="flex items-start">
                 <MapPin className="w-5 h-5 mr-3 mt-1 flex-shrink-0" />
-                <span>123 Pharma Lane, Health City, HC 54321</span>
+                <span className="text-muted-foreground">DANIYAWA BAZAR<br />CHILKA-PAR, HILSA ROAD<br />PATNA-801304</span>
               </li>
               <li className="flex items-center">
                 <Phone className="w-5 h-5 mr-3" />
-                <a href="tel:+1234567890" className="hover:text-primary">(123) 456-7890</a>
+                <a href="tel:+1234567890" className="hover:text-primary"><span className="text-muted-foreground">+91 6200255521</span></a>
               </li>
               <li className="flex items-center">
                 <Mail className="w-5 h-5 mr-3" />
@@ -61,7 +60,7 @@ const Footer: React.FC = () => {
       </div>
       <div className="bg-slate-50 py-4">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-500 text-sm">
-          <p>&copy; {new Date().getFullYear()} People Kind Pharma. All Rights Reserved.</p>
+          <p>&copy; {new Date().getFullYear()} People Kind Pharma. All Rights Reserved. Powered by <a target="_blank" href="https://www.ascendons.com/">Ascendons</a></p>
         </div>
       </div>
     </footer>
