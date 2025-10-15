@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { useMedicines } from '../hooks/useMedicines';
 import { useDebounce } from '../hooks/useDebounce';
@@ -83,7 +82,7 @@ const CatalogPage: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="container mx-auto p-4 md:p-6 lg:p-8">
       <div className="bg-white p-4 rounded-lg shadow-md mb-6 sticky top-16 z-40">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
           <div className="relative col-span-1 md:col-span-2 lg:col-span-2">

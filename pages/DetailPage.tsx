@@ -1,19 +1,15 @@
-
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useMedicines } from '../hooks/useMedicines';
-import { useEnquiry } from '../hooks/useEnquiry';
 import { MedicineDetailSkeleton } from '../components/Skeleton';
-import { ArrowLeft, Plus, CheckCircle, Pill, Info, Activity, AlertTriangle, FileJson } from 'lucide-react';
+import { ArrowLeft, Pill, Info, Activity, AlertTriangle, FileJson } from 'lucide-react';
 
 const DetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { medicines, loading } = useMedicines();
-  const { addToEnquiry, isInEnquiry } = useEnquiry();
   const [activeTab, setActiveTab] = useState('description');
 
   const medicine = medicines.find(m => m.id === id);
-  const isAddedToEnquiry = medicine ? isInEnquiry(medicine.id) : false;
 
   if (loading) {
     return <MedicineDetailSkeleton />;
@@ -23,7 +19,7 @@ const DetailPage: React.FC = () => {
     return (
       <div className="text-center py-20">
         <h2 className="text-2xl font-bold mb-4">Medicine not found</h2>
-        <Link to="/" className="text-primary hover:underline">
+        <Link to="/medicines" className="text-primary hover:underline">
           &larr; Back to Catalog
         </Link>
       </div>
@@ -41,8 +37,8 @@ const DetailPage: React.FC = () => {
   ];
 
   return (
-    <div>
-      <Link to="/" className="inline-flex items-center mb-6 text-primary hover:underline">
+    <div className="container mx-auto p-4 md:p-6 lg:p-8">
+      <Link to="/medicines" className="inline-flex items-center mb-6 text-primary hover:underline">
         <ArrowLeft className="w-4 h-4 mr-2" />
         Back to Catalog
       </Link>
@@ -60,7 +56,7 @@ const DetailPage: React.FC = () => {
           <p className="text-lg text-subtle mb-4">{medicine.genericName}</p>
           
           <div className="flex items-baseline mb-6">
-            <span className="text-4xl font-extrabold text-primary">${medicine.price.toFixed(2)}</span>
+            <span className="text-4xl font-extrabold text-primary">₹{medicine.price.toFixed(2)}</span>
             <span className="ml-2 text-sm text-subtle">per pack</span>
           </div>
 
@@ -77,15 +73,6 @@ const DetailPage: React.FC = () => {
               <span className="font-semibold">A prescription is required for this medicine.</span>
             </div>
           )}
-
-          <button
-            onClick={() => addToEnquiry(medicine)}
-            disabled={isAddedToEnquiry}
-            className="w-full flex items-center justify-center text-lg px-6 py-3 bg-secondary hover:bg-secondary/90 text-white rounded-md transition-colors disabled:bg-slate-300 disabled:cursor-not-allowed"
-          >
-            {isAddedToEnquiry ? <CheckCircle className="w-6 h-6 mr-2" /> : <Plus className="w-6 h-6 mr-2" />}
-            {isAddedToEnquiry ? 'Added to Enquiry' : 'Add to Enquiry'}
-          </button>
         </div>
       </div>
       

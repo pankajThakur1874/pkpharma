@@ -2,8 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import type { Medicine } from '../types';
-import { Pill, AlertTriangle, CheckCircle, Plus } from 'lucide-react';
-import { useEnquiry } from '../hooks/useEnquiry';
+import { Pill, AlertTriangle, CheckCircle } from 'lucide-react';
 
 interface MedicineCardProps {
   medicine: Medicine;
@@ -22,9 +21,6 @@ const AvailabilityBadge: React.FC<{ availability: Medicine['availability'] }> = 
 };
 
 const MedicineCard: React.FC<MedicineCardProps> = ({ medicine, view }) => {
-    const { addToEnquiry, isInEnquiry } = useEnquiry();
-    const isAdded = isInEnquiry(medicine.id);
-
   const fallbackImageUrl = `https://placehold.co/400x400/0D9488/FFFFFF?text=${medicine.name.charAt(0)}`;
 
   if (view === 'list') {
@@ -51,16 +47,7 @@ const MedicineCard: React.FC<MedicineCardProps> = ({ medicine, view }) => {
                      <p className="text-sm text-gray-600 mt-2">By <span className="font-semibold">{medicine.brand}</span></p>
                 </div>
                 <div className="flex justify-between items-end mt-4">
-                    <p className="text-2xl font-bold text-text">${medicine.price.toFixed(2)}</p>
-                    <button
-                        onClick={() => addToEnquiry(medicine)}
-                        disabled={isAdded}
-                        className="flex items-center px-4 py-2 bg-secondary hover:bg-secondary/90 text-white rounded-md transition-colors disabled:bg-slate-300 disabled:cursor-not-allowed"
-                        aria-label={isAdded ? `Added ${medicine.name} to enquiry` : `Add ${medicine.name} to enquiry`}
-                    >
-                       {isAdded ? <CheckCircle size={18} className="mr-2" /> : <Plus size={18} className="mr-2" />}
-                       {isAdded ? 'Added' : 'Add to Enquiry'}
-                    </button>
+                    <p className="text-2xl font-bold text-text">₹{medicine.price.toFixed(2)}</p>
                 </div>
             </div>
         </div>
@@ -90,19 +77,9 @@ const MedicineCard: React.FC<MedicineCardProps> = ({ medicine, view }) => {
           <p className="text-sm text-subtle truncate" title={medicine.genericName}>{medicine.genericName}</p>
         </div>
         <div className="flex items-center justify-between mt-4">
-          <p className="text-xl font-bold text-text">${medicine.price.toFixed(2)}</p>
-          {/* FIX: The 'title' prop is not valid on the lucide-react icon component. Wrapped the Pill icon in a span to correctly apply the 'title' attribute for the tooltip. */}
+          <p className="text-xl font-bold text-text">₹{medicine.price.toFixed(2)}</p>
           {medicine.prescription && <span title="Prescription required"><Pill size={20} className="text-accent" /></span>}
         </div>
-         <button
-            onClick={() => addToEnquiry(medicine)}
-            disabled={isAdded}
-            className="w-full mt-4 flex items-center justify-center px-4 py-2 bg-secondary hover:bg-secondary/90 text-white rounded-md transition-colors disabled:bg-slate-300 disabled:cursor-not-allowed"
-            aria-label={isAdded ? `Added ${medicine.name} to enquiry` : `Add ${medicine.name} to enquiry`}
-        >
-            {isAdded ? <CheckCircle size={18} className="mr-2" /> : <Plus size={18} className="mr-2" />}
-            {isAdded ? 'Added' : 'Add to Enquiry'}
-        </button>
       </div>
     </div>
   );
