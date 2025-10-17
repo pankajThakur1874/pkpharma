@@ -1,6 +1,5 @@
 name: Build and Deploy to GitHub Pages
 
-# Trigger on pushes to main (change to your default branch if different)
 on:
   push:
     branches:
@@ -23,30 +22,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Use Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Cache node modules
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
       - name: Install dependencies
-        run: npm i
+        run: npm ci
 
-      - name: Build
+      - name: Build project
         run: npm run build
 
-      # Package & upload artifact for Pages (uses upload-artifact v4 under the hood)
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: ./dist
+          path: ./dist  # or ./build if CRA
 
   deploy:
     name: Deploy to GitHub Pages
@@ -54,13 +44,8 @@ jobs:
     needs: build
     steps:
       - name: Configure GitHub Pages
-        id: configure
         uses: actions/configure-pages@v5
 
-      # Deploys the artifact uploaded by the build job. Uses deploy-pages@v4 which is compatible with upload-pages-artifact@v4.
       - name: Deploy to GitHub Pages
-        id: deploy
+        id: deployment
         uses: actions/deploy-pages@v4
-
-      - name: Print published URL
-        run: echo "Pages published to ${{ steps.deploy.outputs.page_url || 'see repo Settings → Pages' }}"
