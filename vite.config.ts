@@ -7,7 +7,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     // 👇👇 THIS IS CRITICAL 👇👇
-    base: '/pkpharma/',
+    base: '/',
 
     server: {
       port: 3000,
